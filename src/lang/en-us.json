@@ -1,0 +1,19 @@
+{
+  "usernameRequire": "enter username",
+  "passwordRequired": "enter password",
+  "login": {
+    "signinTitle": "Sign in",
+    "signin": "Sign in",
+    "username": "Username",
+    "password": "Password",
+    "remberme": "Remember me",
+    "forgot": "Forgot password?",
+    "signup": "Sign Up"
+  },
+  "join": {
+    "signupTitle": "Sign up",
+    "signup": "Sign up",
+    "confirmpswd": "Confirm Password",
+    "hasaccount": "have an account? Sign in"
+  }
+}
