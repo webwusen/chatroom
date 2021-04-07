@@ -3,30 +3,40 @@ import {
   Switch,
   Route,
   Redirect,
+  useHistory
 } from "react-router-dom";
 import loadable from "@loadable/component";
 import { LoadableComponent } from "loadable__component";
-import room from "./room";
-
 export interface routesProps {
   path: string;
   exact?: boolean;
-  component: LoadableComponent<any>;
+  component?: LoadableComponent<any>;
+  render?: React.FC;
   routes?: Array<routesProps>;
 }
 
 const Login = loadable(() => import("@/pages/login"));
 const Panel = loadable(() => import("@/pages/panel"));
 
-const token: string | null = localStorage.getItem("userinfo");
-const defaultRoute = token ? Panel : Login;
-const defaultLink = token ? "/panel/chat" : "login";
-
 export const routes: Array<routesProps> = [
   {
-    path: "/",
     exact: true,
-    component: defaultRoute,
+    path: "/",
+    render: () => <Redirect to="/panel/chat" />
+  },
+  {
+    path: "/panel",
+    component: Panel,
+    routes: [
+      {
+        path: "/panel/chat",
+        component: loadable(() => import("@/pages/chat")),
+      },
+      {
+        path: "/panel/buddy",
+        component: loadable(() => import("@/pages/buddy")),
+      }
+    ],
   },
   {
     path: "/login",
@@ -36,20 +46,26 @@ export const routes: Array<routesProps> = [
     path: "/join",
     component: loadable(() => import("@/pages/join")),
   },
-  {
-    path: "/panel",
-    component: Panel,
-    routes: room,
-  },
 ];
 
 export function RouteWithSubRoutes(route: routesProps) {
+  const history = useHistory();
+  const token: string | null = localStorage.getItem("userinfo");
   return (
     <Route
       exact={!!route.exact}
       path={route.path}
       render={(props: any) => (
-        <route.component {...props} routes={route.routes} />
+        token ? (
+          route.render ?
+            route.render({ ...props, route: route }) : route.component && <route.component {...props} routes={route.routes} />
+        )
+          : (
+            <>
+              <Login />
+              <Redirect to="/login" from={history.location.pathname} />
+            </>
+          )
       )}
     />
   );
@@ -60,16 +76,7 @@ export default function Routers() {
     <Router>
       <Switch>
         {routes.map((route) =>
-          route.path === "/" ? (
-            <Route
-              exact
-              path="/"
-              key="/"
-              render={() => <Redirect to={defaultLink} push />}
-            />
-          ) : (
-            <RouteWithSubRoutes key={route.path} {...route} />
-          )
+          <RouteWithSubRoutes key={route.path} {...route} />
         )}
       </Switch>
     </Router>

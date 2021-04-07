@@ -1,0 +1,16 @@
+.common-main {
+  display: flex;
+  flex: 1;
+  overflow: hidden;
+  background-color: #f5f5f5;
+}
+
+.common-left-bar {
+  width: 250px;
+  background-color: #e6e6e6;
+}
+
+.common-content {
+  flex: 1;
+  overflow: hidden;
+}

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { withRouter, RouteComponentProps } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import Box from '@material-ui/core/Box';
 import Avatar from "@material-ui/core/Avatar";
 import Button from "@material-ui/core/Button";
@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-const Login = (props: RouteComponentProps) => {
+const Login: React.FC = () => {
   const classes = useStyles();
   const { t } = useTranslation();
 
@@ -123,6 +123,8 @@ const Login = (props: RouteComponentProps) => {
     return false;
   };
 
+  const history = useHistory();
+
   const logIn = () => {
     const flag = checkInput();
     if (flag) {
@@ -136,7 +138,7 @@ const Login = (props: RouteComponentProps) => {
           })
         );
       }
-      props.history.push("/panel");
+      history.push("/panel/chat");
     }
   };
 
@@ -232,4 +234,4 @@ const Login = (props: RouteComponentProps) => {
   );
 };
 
-export default withRouter(Login);
+export default Login;
