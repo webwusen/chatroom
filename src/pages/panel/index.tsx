@@ -4,6 +4,7 @@ import { makeStyles } from "@material-ui/core/styles";
 import { Switch } from "react-router-dom";
 import { RouteWithSubRoutes } from "@/router";
 import { routesProps } from "@/router/index";
+import Avatar from '@material-ui/core/Avatar';
 import MenuList from '@material-ui/core/MenuList';
 import MenuItem from '@material-ui/core/MenuItem';
 import ChatBubbleIcon from '@material-ui/icons/ChatBubble';
@@ -13,20 +14,32 @@ import RecordVoiceOverOutlinedIcon from '@material-ui/icons/RecordVoiceOverOutli
 
 const useStyles = makeStyles((theme) => ({
   main: {
-    width: "100%",
-    height: "100%",
+    width: "900px",
+    height: "80%",
+    position: "absolute",
+    top: "50%",
+    left: "50%",
     overflow: "hidden",
     display: "flex",
+    borderRadius: "5px",
+    transform: "translate(-50%,-50%)",
+    boxShadow: "0 0 10px rgba(0,0,0,.3)"
   },
   leftBar: {
     width: "60px",
+    padding: "20px 0",
+    backgroundColor: "#2c2726"
   },
   menu: {
-    outline: 'none'
+    outline: "none"
   },
   space: {
-    marginTop: theme.spacing(2),
-    marginBottom: theme.spacing(2),
+    margin: "15px 0",
+  },
+  avatar: {
+    width: "34px",
+    height: "34px",
+    margin: "0 auto"
   }
 }));
 
@@ -66,10 +79,16 @@ const Panel = ({ routes }: Props) => {
   return (
     <main className={classes.main}>
       <div className={classes.leftBar}>
+        <Avatar variant="rounded" src="/static/images/avatar/1.jpg" className={classes.avatar}></Avatar>
         <MenuList className={classes.menu}>
           {
             menu.map(item => (
-              <MenuItem key={item.path} className={classes.space} style={{ color: item.path === activePath ? '#07C160' : '#737374' }} onClick={() => handleCilic(item)}>
+              <MenuItem
+                key={item.path}
+                className={classes.space}
+                style={{ color: item.path === activePath ? '#07C160' : '#737374' }}
+                onClick={() => handleCilic(item)}
+              >
                 { item.path === activePath ? item.activeIcon : item.icon}
               </MenuItem>
             ))
