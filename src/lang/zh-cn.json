@@ -15,5 +15,6 @@
     "signup": "注册",
     "confirmpswd": "确认密码",
     "hasaccount": "已有账号,去登录"
-  }
+  },
+  "search": "搜索"
 }
