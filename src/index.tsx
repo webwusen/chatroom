@@ -4,6 +4,7 @@ import "./index.css";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import CssBaseline from "@material-ui/core/CssBaseline";
+import 'normalize.css/normalize.css'
 import '@/styles/common.css';
 
 ReactDOM.render(

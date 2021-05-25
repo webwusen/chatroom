@@ -2,7 +2,11 @@ import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
 import Search from "@/components/Search";
 
-const useStyles = makeStyles((theme) => ({}));
+const useStyles = makeStyles((theme) => ({
+  searchBox: {
+
+  }
+}));
 
 const Chat: React.FC = () => {
   const classes = useStyles();
